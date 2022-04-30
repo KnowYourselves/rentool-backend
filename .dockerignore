@@ -1,0 +1,4 @@
+.github
+.venv
+.pre-commit-config.yaml
+Makefile
