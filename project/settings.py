@@ -16,6 +16,8 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 from os import environ
 from pathlib import Path
 
+import dj_database_url
+
 # Build paths inside the project like this: BASE_DIR / "subdir".
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -91,6 +93,10 @@ DATABASES = {
         "PORT": environ.get("DATABASE_PORT", 5432),
     }
 }
+
+# Configure DATABASE_URL as the main database
+if "DATABASE_URL" in environ:
+    DATABASES["default"] = dj_database_url.config(ssl_require=True)
 
 
 # Password validation
