@@ -1,0 +1,30 @@
+services:
+  db:
+    image: postgres:14.2
+    volumes:
+      - data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_HOST_AUTH_METHOD: trust  # Insecure connection, only for local
+    networks:
+      - backend
+  web:
+    build: .
+    init: true
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    environment:
+      PORT: 8000
+      DJANGO_ENV: development
+      DJANGO_SECRET_KEY: supersecretkey
+    depends_on:
+      - db
+    networks:
+      - backend
+
+volumes:
+  data:
+
+networks:
+  backend:
