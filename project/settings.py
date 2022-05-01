@@ -24,10 +24,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-bq#d2_nass^=%x82z7627um^kdsz$=-1mx_6&s(nyddos4jmq("
+SECRET_KEY = environ.get("DJANGO_SECRET_KEY", "insecure-secret-key")
 
 # SECURITY WARNING: don"t run with debug turned on in production!
-DEBUG = True
+DEBUG = environ.get("DJANGO_ENV", "development") != "production"
 
 ALLOWED_HOSTS = []
 
@@ -84,9 +84,11 @@ WSGI_APPLICATION = "project.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": environ.get("DB_NAME", "rentool-backend"),
-        "USER": environ.get("DB_USER", "postgres"),
-        "PASSWORD": environ.get("DB_PASSWORD", "postgres"),
+        "NAME": environ.get("DATABASE_NAME", "postgres"),
+        "USER": environ.get("DATABASE_USER", "postgres"),
+        "PASSWORD": environ.get("DATABASE_PASSWORD"),
+        "HOST": environ.get("DATABASE_HOST", "db"),
+        "PORT": environ.get("DATABASE_PORT", 5432),
     }
 }
 
