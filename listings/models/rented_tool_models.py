@@ -3,8 +3,10 @@ from django.conf import settings
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
+from base.models import BaseModel
 
-class RentedTool(models.Model):
+
+class RentedTool(BaseModel):
     listing = models.ForeignKey(
         "listings.ToolListing",
         verbose_name=_("listing"),

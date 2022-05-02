@@ -3,8 +3,10 @@ from django.core import validators
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
+from base.models import BaseModel
 
-class Review(models.Model):
+
+class Review(BaseModel):
     listing = models.ForeignKey(
         "listings.ToolListing",
         verbose_name=_("listing"),

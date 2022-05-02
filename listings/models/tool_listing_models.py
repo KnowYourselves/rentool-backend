@@ -3,8 +3,10 @@ from django.conf import settings
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
+from base.models import BaseModel
 
-class ToolListing(models.Model):
+
+class ToolListing(BaseModel):
     class Status(models.IntegerChoices):
         UNPUBLISHED = 0, _("Unpublished")
         PUBLISHED = 1, _("Published")
