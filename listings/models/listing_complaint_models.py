@@ -14,11 +14,13 @@ class ListingComplaint(BaseModel):
     )
     user_complainer = models.ForeignKey(
         settings.AUTH_USER_MODEL,
+        null=True,
         on_delete=models.SET_NULL,
         related_name="complaints_made",
     )
     user_receiver = models.ForeignKey(
         settings.AUTH_USER_MODEL,
+        null=True,
         on_delete=models.SET_NULL,
         related_name="complaints_received",
     )
