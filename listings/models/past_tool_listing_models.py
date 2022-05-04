@@ -11,6 +11,7 @@ class PastToolListing(BaseListing):
         settings.AUTH_USER_MODEL,
         on_delete=models.SET_NULL,
         null=True,
+        related_name="rented_listings",
     )
     listing = models.ForeignKey(
         "listings.ToolListing",
