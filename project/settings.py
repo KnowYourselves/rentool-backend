@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 # flake8: noqa
 
 # standard library
+import json
+
 from os import environ
 from pathlib import Path
 
@@ -33,7 +35,9 @@ SECRET_KEY = environ.get("DJANGO_SECRET_KEY", "insecure-secret-key")
 DEBUG = environ.get("DJANGO_ENV", "development") != "production"
 
 CORS_ORIGIN_ALLOW_ALL = True
-ALLOWED_HOSTS = []
+
+
+ALLOWED_HOSTS = json.loads(environ.get("DJANGO_ALLOWED_HOSTS", '["localhost"]'))
 
 # Application definition
 
