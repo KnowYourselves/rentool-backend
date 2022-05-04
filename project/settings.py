@@ -37,7 +37,7 @@ DEBUG = environ.get("DJANGO_ENV", "development") != "production"
 CORS_ORIGIN_ALLOW_ALL = True
 
 
-ALLOWED_HOSTS = json.loads(environ.get("DJANGO_ALLOWED_HOSTS", "[]"))
+ALLOWED_HOSTS = json.loads(environ.get("DJANGO_ALLOWED_HOSTS", '["localhost"]'))
 
 # Application definition
 
