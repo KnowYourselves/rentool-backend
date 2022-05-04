@@ -1,0 +1,30 @@
+name: release
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - .github/workflows/release.yml
+      - "**/*"
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    env:
+      HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Log in to Heroku Container Registry
+        run: heroku container:login
+
+      - name: Build and push
+        run: heroku container:push --app ${{ secrets.HEROKU_PRODUCTION_BACKEND_APP_NAME }} web
+
+      - name: Release the image
+        run: heroku container:release --app ${{ secrets.HEROKU_PRODUCTION_BACKEND_APP_NAME }} web
+
+      - name: Migrate the database
+        run: heroku run --app ${{ secrets.HEROKU_PRODUCTION_BACKEND_APP_NAME }} ./manage.py migrate
