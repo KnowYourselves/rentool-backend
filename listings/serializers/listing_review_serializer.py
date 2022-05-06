@@ -8,3 +8,4 @@ class ReviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Review
         fields = "__all__"
+        extra_kwargs = {"reviewer": {"required": True}}

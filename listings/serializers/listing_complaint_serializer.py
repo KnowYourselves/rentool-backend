@@ -8,3 +8,7 @@ class ListingComplaintSerializer(serializers.ModelSerializer):
     class Meta:
         model = ListingComplaint
         fields = "__all__"
+        extra_kwargs = {
+            "user_receiver": {"required": True},
+            "user_complainer": {"required": True},
+        }
