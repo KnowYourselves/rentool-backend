@@ -41,5 +41,8 @@ jobs:
       - name: Install dependencies
         run: poetry install
 
+      - name: Add postgres host to env
+        run: echo "DATABASE_HOST=localhost" >> .env
+
       - name: Run Tests
         run: make tests
