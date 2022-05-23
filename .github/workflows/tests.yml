@@ -19,11 +19,14 @@ jobs:
         image: postgres
         env:
           POSTGRES_PASSWORD: postgres
+          POSTGRES_USER: postgres
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
+        ports:
+          - 5432:5432
     steps:
       - uses: actions/checkout@v2
 
@@ -41,8 +44,10 @@ jobs:
       - name: Install dependencies
         run: poetry install
 
-      - name: Add postgres host to env
-        run: echo "DATABASE_HOST=localhost" >> .env
-
       - name: Run Tests
         run: make tests
+        env:
+          DATABASE_HOST: localhost
+          DATABASE_PORT: 5432
+          DATABASE_USER: postgres
+          DATABASE_PASSWORD: postgres
