@@ -42,7 +42,7 @@ class BaseApiTestCase(TestCase):
     def create_listing(self, data=None):
         data = data if data else {}
         return self.client.post(
-            "/api/tool_listings/",
+            "/api/tool-listings/",
             {
                 "name": data.get("name", "test"),
                 "description": data.get("description", "test"),
@@ -55,7 +55,7 @@ class BaseApiTestCase(TestCase):
     def create_past_listing(self, data=None):
         data = data if data else {}
         return self.client.post(
-            "/api/past_tool_listings/",
+            "/api/past-tool-listings/",
             {
                 "name": data.get("name", "test"),
                 "description": data.get("description", "test"),

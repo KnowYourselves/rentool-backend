@@ -27,7 +27,7 @@ class ListingCrudTestCase(BaseApiTestCase):
 
     def test_listing_update(self):
         response = self.client.put(
-            f"/api/tool_listings/{self.listing.get('id')}/",
+            f"/api/tool-listings/{self.listing.get('id')}/",
             {
                 "name": "other",
                 "description": "other",
@@ -44,7 +44,7 @@ class ListingCrudTestCase(BaseApiTestCase):
         self.assertEqual(data.get("publisher"), self.listing.get("publisher"))
 
     def test_listing_detail(self):
-        response = self.client.get(f"/api/tool_listings/{self.listing.get('id')}/")
+        response = self.client.get(f"/api/tool-listings/{self.listing.get('id')}/")
         data = response.json()
         self.assertIsNotNone(response.status_code, 200)
         self.assertIsNotNone(data.get("name"))
@@ -54,13 +54,13 @@ class ListingCrudTestCase(BaseApiTestCase):
         self.assertIsNotNone(data.get("publisher"))
 
     def test_listing_delete(self):
-        response = self.client.delete(f"/api/tool_listings/{self.listing.get('id')}/")
+        response = self.client.delete(f"/api/tool-listings/{self.listing.get('id')}/")
         self.assertEqual(response.status_code, 204)
 
     def test_listing_list(self):
         for _ in range(10):
             self.create_listing()
 
-        response = self.client.get("/api/tool_listings/")
+        response = self.client.get("/api/tool-listings/")
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.json()), 11)

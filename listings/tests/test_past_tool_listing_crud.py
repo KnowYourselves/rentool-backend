@@ -33,7 +33,7 @@ class PastListingCrudTestCase(BaseApiTestCase):
 
     def test_past_listing_update(self):
         response = self.client.put(
-            f"/api/past_tool_listings/{self.past_listing.get('id')}/",
+            f"/api/past-tool-listings/{self.past_listing.get('id')}/",
             {
                 "name": "other",
                 "description": "other",
@@ -51,7 +51,7 @@ class PastListingCrudTestCase(BaseApiTestCase):
 
     def test_past_listing_detail(self):
         response = self.client.get(
-            f"/api/past_tool_listings/{self.past_listing.get('id')}/"
+            f"/api/past-tool-listings/{self.past_listing.get('id')}/"
         )
         data = response.json()
         self.assertIsNotNone(response.status_code, 200)
@@ -62,7 +62,7 @@ class PastListingCrudTestCase(BaseApiTestCase):
 
     def test_past_listing_delete(self):
         response = self.client.delete(
-            f"/api/past_tool_listings/{self.past_listing.get('id')}/"
+            f"/api/past-tool-listings/{self.past_listing.get('id')}/"
         )
         self.assertEqual(response.status_code, 204)
 
@@ -70,6 +70,6 @@ class PastListingCrudTestCase(BaseApiTestCase):
         for _ in range(10):
             self.create_past_listing()
 
-        response = self.client.get("/api/past_tool_listings/")
+        response = self.client.get("/api/past-tool-listings/")
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.json()), 11)
