@@ -3,5 +3,5 @@ from django.db import models
 
 
 class CustomUser(AbstractUser):
-    REQUIRED_FIELDS = ["username", "email", "phone_number"]
+    REQUIRED_FIELDS = ["email", "phone_number"]
     phone_number = models.CharField(max_length=20, blank=False, null=False)
