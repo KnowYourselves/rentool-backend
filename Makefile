@@ -12,7 +12,7 @@ build-env:
 # Tests
 .PHONY: tests
 tests:
-	poetry run ./manage.py test
+	poetry run pytest
 
 # Passive linters
 .PHONY: black
