@@ -15,11 +15,25 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 # standard library
 import json
 
-from os import environ
 from pathlib import Path
 
 # others libraries
 import dj_database_url
+import environ
+
+env = environ.Env(
+    DJANGO_SECRET_KEY=(str, "insecure-secret-key"),
+    DJANGO_ENV=(str, "development"),
+    DJANGO_ALLOWED_HOSTS=(str, '["localhost"]'),
+    DATABASE_NAME=(str, "postgres"),
+    DATABASE_USER=(str, "postgres"),
+    DATABASE_HOST=(str, "db"),
+    DATABASE_PASSWORD=(str, "password"),
+    DATABASE_PORT=(int, 5432),
+    DATABASE_URL=(str, ""),
+)
+
+environ.Env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / "subdir".
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -29,15 +43,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = environ.get("DJANGO_SECRET_KEY", "insecure-secret-key")
+SECRET_KEY = env("DJANGO_SECRET_KEY")
 
 # SECURITY WARNING: don"t run with debug turned on in production!
-DEBUG = environ.get("DJANGO_ENV", "development") != "production"
+DEBUG = env("DJANGO_ENV") != "production"
 
 CORS_ORIGIN_ALLOW_ALL = True
 
 
-ALLOWED_HOSTS = json.loads(environ.get("DJANGO_ALLOWED_HOSTS", '["localhost"]'))
+ALLOWED_HOSTS = json.loads(env("DJANGO_ALLOWED_HOSTS"))
 
 # Application definition
 
@@ -48,6 +62,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "rest_framework_simplejwt",
     "corsheaders",
     "rest_framework",
     "djoser",
@@ -94,16 +109,16 @@ WSGI_APPLICATION = "project.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": environ.get("DATABASE_NAME", "postgres"),
-        "USER": environ.get("DATABASE_USER", "postgres"),
-        "PASSWORD": environ.get("DATABASE_PASSWORD"),
-        "HOST": environ.get("DATABASE_HOST", "db"),
-        "PORT": environ.get("DATABASE_PORT", 5432),
+        "NAME": env("DATABASE_NAME"),
+        "USER": env("DATABASE_USER"),
+        "PASSWORD": env("DATABASE_PASSWORD"),
+        "HOST": env("DATABASE_HOST"),
+        "PORT": env("DATABASE_PORT"),
     }
 }
 
 # Configure DATABASE_URL as the main database
-if "DATABASE_URL" in environ:
+if env("DATABASE_URL"):
     DATABASES["default"] = dj_database_url.config(ssl_require=True)
 
 
@@ -141,7 +156,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-STATIC_URL = "static/"
+STATIC_URL = "/static/"
+
+MEDIA_DIR = f"{BASE_DIR}/project/media"
+MEDIA_ROOT = MEDIA_DIR
+MEDIA_URL = "/media/"
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
