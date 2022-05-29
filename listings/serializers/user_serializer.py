@@ -9,6 +9,5 @@ class UserRegistrationSerializer(BaseUserRegistrationSerializer):
             "last_name",
             "email",
             "password",
-            "groups",
             "phone_number",
         )
