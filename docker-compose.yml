@@ -18,6 +18,8 @@ services:
       PORT: 8000
       DJANGO_ENV: development
       DJANGO_SECRET_KEY: supersecretkey
+    env_file:
+      .env
     depends_on:
       - db
     networks:
