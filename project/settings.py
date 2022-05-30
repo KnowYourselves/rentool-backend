@@ -14,6 +14,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 # standard library
 import json
+import os
 
 from pathlib import Path
 
@@ -31,6 +32,10 @@ env = environ.Env(
     DATABASE_PASSWORD=(str, "password"),
     DATABASE_PORT=(int, 5432),
     DATABASE_URL=(str, ""),
+    USE_S3=(str, "YES"),
+    AWS_ACCESS_KEY_ID=(str, ""),
+    AWS_SECRET_ACCESS_KEY=(str, ""),
+    AWS_STORAGE_BUCKET_NAME=(str, ""),
 )
 
 environ.Env.read_env()
@@ -69,6 +74,7 @@ INSTALLED_APPS = [
     "django_extensions",
     "base",
     "listings",
+    "storages",
 ]
 
 MIDDLEWARE = [
@@ -153,16 +159,6 @@ USE_I18N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/4.0/howto/static-files/
-
-STATIC_URL = "/static/"
-
-MEDIA_DIR = f"{BASE_DIR}/project/media"
-MEDIA_ROOT = MEDIA_DIR
-MEDIA_URL = "/media/"
-
-
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
@@ -181,3 +177,50 @@ SIMPLE_JWT = {
 }
 
 AUTH_USER_MODEL = "listings.CustomUser"
+
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "filters": {"require_debug_false": {"()": "django.utils.log.RequireDebugFalse"}},
+    "formatters": {
+        "standard": {
+            "format": (
+                "%(asctime)s %(levelname)s: file %(filename)s line %(lineno)d "
+                "%(message)s"
+            )
+        },
+    },
+    "handlers": {
+        "file": {
+            "class": "logging.FileHandler",
+            "filename": "{}/logs/error.log".format(BASE_DIR),
+            "formatter": "standard",
+            "level": "ERROR",
+        },
+    },
+    "loggers": {
+        "django.request": {
+            "handlers": ["file"],
+            "level": "ERROR",
+            "propagate": True,
+        },
+    },
+}
+
+
+if env("USE_S3") == "YES":
+    # aws settings
+    AWS_ACCESS_KEY_ID = env("AWS_ACCESS_KEY_ID")
+    AWS_SECRET_ACCESS_KEY = env("AWS_SECRET_ACCESS_KEY")
+    AWS_STORAGE_BUCKET_NAME = env("AWS_STORAGE_BUCKET_NAME")
+    AWS_DEFAULT_ACL = "public-read"
+    AWS_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com"
+    AWS_S3_OBJECT_PARAMETERS = {"CacheControl": "max-age=86400"}
+    DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/4.0/howto/static-files/
+MEDIA_DIR = f"{BASE_DIR}/project/media"
+MEDIA_ROOT = MEDIA_DIR
+MEDIA_URL = "/media/"
