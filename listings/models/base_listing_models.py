@@ -2,6 +2,7 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
+from drf_extra_fields.fields import Base64ImageField
 from base.models import BaseModel
 
 
@@ -18,9 +19,7 @@ class BaseListing(BaseModel):
     description = models.TextField(
         verbose_name=_("listing description"),
     )
-    image = models.ImageField(
-        verbose_name=_("listing image"),
-    )
+    image = Base64ImageField()
     price = models.IntegerField(
         verbose_name=_("tool price"),
     )
