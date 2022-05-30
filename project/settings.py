@@ -181,3 +181,33 @@ SIMPLE_JWT = {
 }
 
 AUTH_USER_MODEL = "listings.CustomUser"
+
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "filters": {"require_debug_false": {"()": "django.utils.log.RequireDebugFalse"}},
+    "formatters": {
+        "standard": {
+            "format": (
+                "%(asctime)s %(levelname)s: file %(filename)s line %(lineno)d "
+                "%(message)s"
+            )
+        },
+    },
+    "handlers": {
+        "file": {
+            "class": "logging.FileHandler",
+            "filename": "{}/logs/error.log".format(BASE_DIR),
+            "formatter": "standard",
+            "level": "ERROR",
+        },
+    },
+    "loggers": {
+        "django.request": {
+            "handlers": ["file"],
+            "level": "ERROR",
+            "propagate": True,
+        },
+    },
+}
