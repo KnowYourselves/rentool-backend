@@ -181,6 +181,3 @@ SIMPLE_JWT = {
 }
 
 AUTH_USER_MODEL = "listings.CustomUser"
-# DJOSER = {
-#     "SERIALIZERS": {"user_create": "listings.serializers.user_serializer.UserRegistrationSerializer"}
-# }
