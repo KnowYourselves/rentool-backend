@@ -224,3 +224,4 @@ if env("USE_S3") == "YES":
 MEDIA_DIR = f"{BASE_DIR}/project/media"
 MEDIA_ROOT = MEDIA_DIR
 MEDIA_URL = "/media/"
+STATIC_URL = "/static/"
