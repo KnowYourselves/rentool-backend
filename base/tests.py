@@ -33,10 +33,21 @@ class BaseApiTestCase(TestCase):
         img.save(bts, "jpeg")
         return SimpleUploadedFile("test.jpg", bts.getvalue())
 
-    def create_user(self, username="user", password="validpassword1"):
+    def create_user(
+        self,
+        username="user",
+        password="validpassword1",
+        email="example@example.com",
+        phone_number="+56912345678",
+    ):
         return self.client.post(
             "/auth/users/",
-            {"username": username, "password": password},
+            {
+                "username": username,
+                "password": password,
+                "email": email,
+                "phone_number": phone_number,
+            },
         ).json()
 
     def create_listing(self, data=None):
