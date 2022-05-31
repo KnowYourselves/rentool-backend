@@ -22,7 +22,13 @@ class PastToolListing(BaseListing):
     @classmethod
     def create_from_listing(cls, listing, renter):
         return cls.objects.create(
-            **model_to_dict(listing, exclude=("publisher",)),
+            **model_to_dict(
+                listing,
+                exclude=(
+                    "id",
+                    "publisher",
+                ),
+            ),
             renter=renter,
             listing=listing,
         )
