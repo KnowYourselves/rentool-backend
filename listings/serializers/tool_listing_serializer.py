@@ -2,6 +2,7 @@
 from rest_framework import serializers
 
 from listings.models import ToolListing
+from serializers.base64_image_serializer import Base64ImageField
 
 
 class ToolListingSerializer(serializers.ModelSerializer):
@@ -9,6 +10,7 @@ class ToolListingSerializer(serializers.ModelSerializer):
         read_only=True,
         default=serializers.CurrentUserDefault(),
     )
+    image = Base64ImageField()
 
     class Meta:
         model = ToolListing
