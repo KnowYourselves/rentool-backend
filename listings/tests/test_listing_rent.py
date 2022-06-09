@@ -1,5 +1,3 @@
-# django
-
 from base.tests import BaseApiTestCase
 from listings.models import PastToolListing
 from listings.models import ToolListing
