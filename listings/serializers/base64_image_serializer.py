@@ -11,6 +11,6 @@ class Base64ImageField(serializers.ImageField):
             # base64 encoded image - decode
             format, imgstr = data.split(";base64,")  # format ~= data:image/X,
             ext = format.split("/")[-1]  # guess file extension
-            id = uuid.uuid5()
+            id = uuid.uuid5(namespace=uuid.NAMESPACE_OID, name="listing")
             data = ContentFile(base64.b64decode(imgstr), name=id.urn[9:] + "." + ext)
         return super(Base64ImageField, self).to_internal_value(data)

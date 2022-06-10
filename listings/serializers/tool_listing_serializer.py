@@ -2,7 +2,7 @@
 from rest_framework import serializers
 
 from listings.models import ToolListing
-from serializers.base64_image_serializer import Base64ImageField
+from listings.serializers.base64_image_serializer import Base64ImageField
 
 
 class ToolListingSerializer(serializers.ModelSerializer):
