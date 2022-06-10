@@ -2,15 +2,14 @@
 from rest_framework import serializers
 
 from listings.models import ToolListing
-from listings.serializers.base64_image_serializer import Base64ImageField
+from listings.serializers.base_tool_listing_serializer import BaseToolListingSerializer
 
 
-class ToolListingSerializer(serializers.ModelSerializer):
+class ToolListingSerializer(BaseToolListingSerializer):
     publisher = serializers.PrimaryKeyRelatedField(
         read_only=True,
         default=serializers.CurrentUserDefault(),
     )
-    image = Base64ImageField()
 
     class Meta:
         model = ToolListing
