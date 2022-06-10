@@ -3,7 +3,6 @@ import base64
 from io import BytesIO
 
 # django
-from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import TestCase
 
 # others libraries
