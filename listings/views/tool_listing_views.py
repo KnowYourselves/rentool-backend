@@ -30,3 +30,12 @@ class ToolListingRent(generics.UpdateAPIView, generics.GenericAPIView):
         response = super().partial_update(request, *args, **kwargs)
         PastToolListing.create_from_listing(self.get_object(), request.user)
         return response
+
+
+class MyToolListingList(generics.ListAPIView):
+    serializer_class = ToolListingSerializer
+    permission_classes = (BlockUnsafeMethods,)
+
+    def get_queryset(self):
+        print("OK")
+        return ToolListing.objects.filter(publisher=self.request.user)
