@@ -1,8 +1,8 @@
 # standard library
+import base64
 from io import BytesIO
 
 # django
-from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import TestCase
 
 # others libraries
@@ -31,7 +31,8 @@ class BaseApiTestCase(TestCase):
         bts = BytesIO()
         img = Image.new("RGB", (100, 100))
         img.save(bts, "jpeg")
-        return SimpleUploadedFile("test.jpg", bts.getvalue())
+        encoded = base64.b64encode(bts.getvalue()).decode("utf-8")
+        return f"data:image/jpeg;base64,{encoded}"
 
     def create_user(
         self,
