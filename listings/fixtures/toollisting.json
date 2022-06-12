@@ -1,0 +1,72 @@
+[
+    {
+        "model": "listings.ToolListing",
+        "pk": 1,
+        "fields": {
+            "created_at": "2022-01-01T00:00:00+00:00",
+            "updated_at": "2022-01-01T00:00:00+00:00",
+            "name": "martillo",
+            "description": "Martillo de hierro",
+            "image": "martillo.png",
+            "price": "10",
+            "status": "Published",
+            "publisher": 1
+        }
+    },
+    {
+        "model": "listings.ToolListing",
+        "pk": 2,
+        "fields": {
+            "created_at": "2022-01-01T00:00:00+00:00",
+            "updated_at": "2022-01-01T00:00:00+00:00",
+            "name": "pala",
+            "description": "pala de hierro",
+            "image": "pala.png",
+            "price": "100",
+            "status": "Published",
+            "publisher": 1
+        }
+    },
+    {
+        "model": "listings.ToolListing",
+        "pk": 3,
+        "fields": {
+            "created_at": "2022-01-01T00:00:00+00:00",
+            "updated_at": "2022-01-01T00:00:00+00:00",
+            "name": "taladro",
+            "description": "taladro de hierro",
+            "image": "taladro.png",
+            "price": "20",
+            "status": "Published",
+            "publisher": 2
+        }
+    },
+    {
+        "model": "listings.ToolListing",
+        "pk": 4,
+        "fields": {
+            "created_at": "2022-01-01T00:00:00+00:00",
+            "updated_at": "2022-01-01T00:00:00+00:00",
+            "name": "destornillador",
+            "description": "destornillador de hierro",
+            "image": "destornillador.png",
+            "price": "5000",
+            "status": "Unpublished",
+            "publisher": 2
+        }
+    },
+    {
+        "model": "listings.ToolListing",
+        "pk": 5,
+        "fields": {
+            "created_at": "2022-01-01T00:00:00+00:00",
+            "updated_at": "2022-01-01T00:00:00+00:00",
+            "name": "clavito",
+            "description": "clavito de hierro",
+            "image": "clavito.png",
+            "price": "666",
+            "status": "Rented",
+            "publisher": 2
+        }
+    }
+]
