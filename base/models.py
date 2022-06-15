@@ -1,6 +1,15 @@
+# standard library
+from uuid import uuid4
+
 # django
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+
+from base import utils
+
+
+def file_path(instance, name):
+    return f"{instance.__class__.__name__}/{utils.today()}/{uuid4()}/{name}"
 
 
 class BaseModel(models.Model):
