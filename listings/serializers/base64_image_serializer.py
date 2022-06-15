@@ -1,6 +1,11 @@
+# standard library
 import base64
 import uuid
+
+# django
 from django.core.files.base import ContentFile
+
+# others libraries
 from rest_framework import serializers
 
 

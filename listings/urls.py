@@ -11,6 +11,7 @@ urlpatterns = [
     path("tool-listings/mine/", views.MyToolListingList.as_view()),
     path("tool-listings/<int:pk>/", views.ToolListingDetail.as_view()),
     path("tool-listings/<int:pk>/rent/", views.ToolListingRent.as_view()),
+    path("tool-listings/<int:pk>/unrent/", views.ToolListingUnrent.as_view()),
     path("reviews/", views.ReviewList.as_view()),
     path("reviews/<int:pk>/", views.ReviewDetail.as_view()),
     path("past-tool-listings/", views.PastToolListingList.as_view()),
