@@ -29,3 +29,14 @@ class ToolListingRentSerializer(serializers.ModelSerializer):
         if self.instance.status == str(ToolListing.Status.RENTED):
             raise serializers.ValidationError("Can't rent an already rented listing")
         return super().validate(attrs)
+
+
+class ToolListingUnrentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ToolListing
+        fields = ["id", "status"]
+
+    def validate(self, attrs):
+        if self.instance.status != str(ToolListing.Status.RENTED):
+            raise serializers.ValidationError("Can't unrent an unrented listing")
+        return super().validate(attrs)

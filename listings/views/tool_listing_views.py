@@ -6,6 +6,7 @@ from listings.models import ToolListing
 from listings.models.past_tool_listing_models import PastToolListing
 from listings.serializers import ToolListingRentSerializer
 from listings.serializers import ToolListingSerializer
+from listings.serializers import ToolListingUnrentSerializer
 
 
 class ToolListingList(generics.ListCreateAPIView):
@@ -29,6 +30,17 @@ class ToolListingRent(generics.UpdateAPIView, generics.GenericAPIView):
         request.data["status"] = ToolListing.Status.RENTED
         response = super().partial_update(request, *args, **kwargs)
         PastToolListing.create_from_listing(self.get_object(), request.user)
+        return response
+
+
+class ToolListingUnrent(generics.UpdateAPIView, generics.GenericAPIView):
+    queryset = ToolListing.objects.all()
+    serializer_class = ToolListingUnrentSerializer
+    permission_classes = (BlockUnsafeMethods,)
+
+    def partial_update(self, request, *args, **kwargs):
+        request.data["status"] = ToolListing.Status.PUBLISHED
+        response = super().partial_update(request, *args, **kwargs)
         return response
 
 
