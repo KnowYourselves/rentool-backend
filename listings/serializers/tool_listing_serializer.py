@@ -10,6 +10,10 @@ class ToolListingSerializer(BaseToolListingSerializer):
         read_only=True,
         default=serializers.CurrentUserDefault(),
     )
+    phone_number = serializers.CharField(
+        source="publisher.phone_number",
+        read_only=True,
+    )
 
     class Meta:
         model = ToolListing
