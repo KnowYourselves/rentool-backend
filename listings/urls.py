@@ -8,7 +8,8 @@ from listings import views
 
 urlpatterns = [
     path("tool-listings/", views.ToolListingList.as_view()),
-    path("tool-listings/mine/", views.MyToolListingList.as_view()),
+    path("tool-listings/my-rented-tools/", views.MyPublishedToolListingList.as_view()),
+    path("tool-listings/my-rentals/", views.MyPublishedToolListingList.as_view()),
     path("tool-listings/<int:pk>/", views.ToolListingDetail.as_view()),
     path("tool-listings/<int:pk>/rent/", views.ToolListingRent.as_view()),
     path("tool-listings/<int:pk>/unrent/", views.ToolListingUnrent.as_view()),

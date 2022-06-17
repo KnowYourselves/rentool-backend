@@ -4,6 +4,7 @@ from rest_framework import generics
 from base.permissions import BlockUnsafeMethods
 from listings.models import ToolListing
 from listings.models.past_tool_listing_models import PastToolListing
+from listings.serializers import PastToolListingSerializer
 from listings.serializers import ToolListingRentSerializer
 from listings.serializers import ToolListingSerializer
 from listings.serializers import ToolListingUnrentSerializer
@@ -44,10 +45,17 @@ class ToolListingUnrent(generics.UpdateAPIView, generics.GenericAPIView):
         return response
 
 
-class MyToolListingList(generics.ListAPIView):
+class MyPublishedToolListingList(generics.ListAPIView):
     serializer_class = ToolListingSerializer
     permission_classes = (BlockUnsafeMethods,)
 
     def get_queryset(self):
-        print("OK")
         return ToolListing.objects.filter(publisher=self.request.user)
+
+
+class MyRentedToolListingList(generics.ListAPIView):
+    serializer_class = PastToolListingSerializer
+    permission_classes = (BlockUnsafeMethods,)
+
+    def get_queryset(self):
+        return PastToolListing.objects.filter(renter=self.request.user)
