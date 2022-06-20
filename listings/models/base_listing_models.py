@@ -3,6 +3,7 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 from base.models import BaseModel
+from base.models import file_path
 
 
 class BaseListing(BaseModel):
@@ -20,6 +21,7 @@ class BaseListing(BaseModel):
     )
     image = models.ImageField(
         verbose_name=_("listing image"),
+        upload_to=file_path,
     )
     price = models.IntegerField(
         verbose_name=_("tool price"),
