@@ -29,7 +29,7 @@ class BaseListing(BaseModel):
     status = models.CharField(
         verbose_name=_("listing status"),
         choices=Status.choices,
-        default=Status.UNPUBLISHED,
+        default=Status.PUBLISHED,
         max_length=200,
     )
 
