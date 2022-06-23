@@ -58,4 +58,12 @@ class MyRentedToolListingList(generics.ListAPIView):
     permission_classes = (BlockUnsafeMethods,)
 
     def get_queryset(self):
+        return PastToolListing.objects.filter(listing__publisher=self.request.user)
+
+
+class MyRentalsList(generics.ListAPIView):
+    serializer_class = PastToolListingSerializer
+    permission_classes = (BlockUnsafeMethods,)
+
+    def get_queryset(self):
         return PastToolListing.objects.filter(renter=self.request.user)
